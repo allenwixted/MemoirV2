@@ -51,8 +51,8 @@ public class AddMemoryActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            double longitude = location.getLongitude();
-            double latitude = location.getLatitude();
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
 
         } else //if GPS permission is disabled, notify user to enable it
         {
@@ -133,46 +133,53 @@ public class AddMemoryActivity extends AppCompatActivity {
     }
 
     //Write data to specified file
-    private void writeToFile(String filename, String data) {
-
+    private void writeToFile(String filename, String data)
+    {
         FileOutputStream outputStream;
-
-        try {
+        try
+        {
             outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
             outputStream.write(data.getBytes());
             outputStream.close();
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
     //Adds a custom menu to the activity
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
     //Detect clicks in the action bar and decide what to do with them
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         int id = item.getItemId();
 
-        if (id == R.id.action_map) {
+        if (id == R.id.action_map)
+        {
             Intent i = new Intent(getApplicationContext(), MapActivity.class);
             startActivity(i);
             return true;
-        } else if (id == R.id.action_help) {
+        } else if (id == R.id.action_help)
+        {
             Intent i = new Intent(getApplicationContext(), helpActivity.class);
             startActivity(i);
             return true;
         }
-        else if(id == R.id.action_log){
+        else if(id == R.id.action_log)
+        {
             Intent i = new Intent(getApplicationContext(), AddMemoryActivity.class);
             startActivity(i);
             return true;
         }
-        else {
+        else
+        {
 
         }
 
@@ -180,35 +187,35 @@ public class AddMemoryActivity extends AppCompatActivity {
     }
 
 
-    public static String readFile(String filePath) {
+    public static String readFile(String filePath)
+    {
 
         String result = "";
         File file = new File(filePath);
-        if (file.exists()) {
-            //byte[] buffer = new byte[(int) new File(filePath).length()];
+        if (file.exists())
+        {
             FileInputStream fis = null;
-            try {
-                //f = new BufferedInputStream(new FileInputStream(filePath));
-                //f.read(buffer);
-
+            try
+            {
                 fis = new FileInputStream(file);
                 char current;
-                while (fis.available() > 0) {
+                while (fis.available() > 0)
+                {
                     current = (char) fis.read();
                     result = result + String.valueOf(current);
-
                 }
-
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 Log.d("MemoryRead", e.toString());
             } finally {
                 if (fis != null)
-                    try {
+                    try
+                    {
                         fis.close();
-                    } catch (IOException ignored) {
+                    } catch (IOException ignored)
+                    {
                     }
             }
-            //result = new String(buffer);
         }
         return result;
     }
