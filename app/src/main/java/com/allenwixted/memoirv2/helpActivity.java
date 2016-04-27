@@ -1,5 +1,6 @@
 package com.allenwixted.memoirv2;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +37,12 @@ public class helpActivity extends AppCompatActivity {
             startActivity(i);
             return true;
         }
+        else if(id == R.id.action_log){
+            Intent i = new Intent(getApplicationContext(), AddMemoryActivity.class);
+            startActivity(i);
+            return true;
+        }
+
         else{
 
         }

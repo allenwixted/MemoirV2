@@ -36,6 +36,11 @@ public class MemoryInfoActivity extends AppCompatActivity {
             startActivity(i);
             return true;
         }
+        else if(id == R.id.action_log){
+            Intent i = new Intent(getApplicationContext(), AddMemoryActivity.class);
+            startActivity(i);
+            return true;
+        }
         else{
 
         }

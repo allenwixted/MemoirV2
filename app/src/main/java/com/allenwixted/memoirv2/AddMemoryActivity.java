@@ -170,7 +170,13 @@ public class AddMemoryActivity extends AppCompatActivity {
             Intent i = new Intent(getApplicationContext(), helpActivity.class);
             startActivity(i);
             return true;
-        } else {
+        }
+        else if(id == R.id.action_log){
+            Intent i = new Intent(getApplicationContext(), AddMemoryActivity.class);
+            startActivity(i);
+            return true;
+        }
+        else {
 
         }
 

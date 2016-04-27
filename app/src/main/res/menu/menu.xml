@@ -9,9 +9,14 @@
         android:orderInCategory="100"
         app:showAsAction="never"/>
 
+    <item android:title="@string/menu_log"
+        android:id="@+id/action_log"
+        android:orderInCategory="200"
+        android:showAsAction="never" />
+
     <item android:title="@string/menu_help"
         android:id="@+id/action_help"
-        android:orderInCategory="200"
+        android:orderInCategory="300"
         app:showAsAction="never"/>
 
 </menu>
