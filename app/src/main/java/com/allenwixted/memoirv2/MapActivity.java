@@ -1,7 +1,7 @@
 package com.allenwixted.memoirv2;
 
 //API KEY: AIzaSyBihlHuDZ-WJL3LKjKMOmFlFWfxtl0UztE
-//Test
+
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
