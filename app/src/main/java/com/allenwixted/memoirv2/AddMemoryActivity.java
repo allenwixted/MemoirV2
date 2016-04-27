@@ -1,12 +1,14 @@
 package com.allenwixted.memoirv2;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,6 +27,7 @@ public class AddMemoryActivity extends AppCompatActivity
 
     double latitude;
     double longitude;
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -32,6 +37,7 @@ public class AddMemoryActivity extends AppCompatActivity
         //create GPS listener
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //Check permissions of GPS
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -81,10 +87,13 @@ public class AddMemoryActivity extends AppCompatActivity
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
 
         Button saveButton = (Button) findViewById(R.id.saveButton);
-        if (saveButton != null) {
-            saveButton.setOnClickListener(new View.OnClickListener() {
+        if (saveButton != null)
+        {
+            saveButton.setOnClickListener(new View.OnClickListener()
+            {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v)
+                {
 
                     Context context = getApplicationContext();
 
@@ -128,11 +137,13 @@ public class AddMemoryActivity extends AppCompatActivity
 
         FileOutputStream outputStream;
 
-        try {
+        try
+        {
             outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
             outputStream.write(data.getBytes());
             outputStream.close();
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }

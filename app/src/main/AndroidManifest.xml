@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.allenwixted.memoirv2">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
 
     <application
         android:allowBackup="true"
@@ -25,7 +27,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBihlHuDZ-WJL3LKjKMOmFlFWfxtl0UztE" />
 
-        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 
         <activity android:name=".helpActivity"></activity>
     </application>
