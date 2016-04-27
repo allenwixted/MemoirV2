@@ -18,6 +18,10 @@
         <activity android:name=".AddMemoryActivity" />
         <activity android:name=".MapActivity" />
         <activity android:name=".MemoryInfoActivity"></activity>
+
+        <meta-data>
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBihlHuDZ-WJL3LKjKMOmFlFWfxtl0UztE"</>
     </application>
 
 </manifest>
