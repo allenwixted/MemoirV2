@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Memoir</string>
+    <string name="title">Titles</string>
+    <string name="desc">Descriptions</string>
+    <string name="lat">Latitudes</string>
+    <string name="lon">Longitudes</string>
 </resources>
