@@ -98,10 +98,6 @@ public class AddMemoryActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     //Create a file for each type of info. Titles, Descriptions, longitude and latitude of Saved Memories)
-                    File titles = new File(context.getFilesDir(), getString(R.string.title));
-                    File desc = new File(context.getFilesDir(), getString(R.string.desc));
-                    File lon = new File(context.getFilesDir(), getString(R.string.lon));
-                    File lat = new File(context.getFilesDir(), getString(R.string.lat));
 
                     //Title of Memory
                     EditText title = (EditText) findViewById(R.id.editText);
