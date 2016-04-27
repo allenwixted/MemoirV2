@@ -29,7 +29,9 @@ public class AddMemoryActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_memory);
 
+        //create GPS listener
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        //Check permissions of GPS
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -37,7 +39,7 @@ public class AddMemoryActivity extends AppCompatActivity
             double latitude = location.getLatitude();
 
         }
-        else
+        else //if GPS permission is disabled, notify user to enable it
         {
             Context context = getApplicationContext();
             CharSequence text = "GPS Permission Disabled, Please Enable!";
@@ -47,9 +49,10 @@ public class AddMemoryActivity extends AppCompatActivity
             toast.show();
         }
 
-
+        //create GPS listener
         final LocationListener locationListener = new LocationListener()
         {
+            //If location changes, update variables
             public void onLocationChanged(Location location)
             {
                 longitude = location.getLongitude();
@@ -75,6 +78,7 @@ public class AddMemoryActivity extends AppCompatActivity
             }
         };
 
+        //set GPS location update interval to 2s
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
 
         Button saveButton = (Button) findViewById(R.id.saveButton);
@@ -84,25 +88,29 @@ public class AddMemoryActivity extends AppCompatActivity
                 public void onClick(View v){
 
                     Context context = getApplicationContext();
+
+                    //Create a file for each type of info. Titles, Descriptions, longitude and latitude of Saved Memories)
                     File titles = new File(context.getFilesDir(), getString(R.string.title));
                     File desc = new File(context.getFilesDir(), getString(R.string.desc));
                     File lon = new File(context.getFilesDir(), getString(R.string.lon));
                     File lat = new File(context.getFilesDir(), getString(R.string.lat));
 
+                    //Title of Memory
                     EditText title = (EditText) findViewById(R.id.editText);
                     String titleText = title.getText().toString();
 
+                    //Description of Memory
                     EditText description = (EditText) findViewById(R.id.editText2);
                     String descText = description.getText().toString();
 
 
+                    //Write info to each file
                     writeToFile(getString(R.string.title), String.format("%s\n", titleText));
                     writeToFile(getString(R.string.desc),String.format("%s\n", descText));
                     writeToFile(getString(R.string.lon),String.format("%f\n", longitude));
                     writeToFile(getString(R.string.lat),String.format("%f\n", latitude));
 
-
-
+                    //Create toast to notify user that memory has been saved
                     CharSequence text = "Memory Saved!";
                     int duration = Toast.LENGTH_SHORT;
 
@@ -114,6 +122,7 @@ public class AddMemoryActivity extends AppCompatActivity
         }
     }
 
+    //Write data to specified file
     private void writeToFile(String filename, String data )
     {
 
