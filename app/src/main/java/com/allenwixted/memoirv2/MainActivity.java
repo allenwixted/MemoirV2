@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Adds functionality for the view memory button
         Button logButton = (Button) findViewById(R.id.mainLogButton);
         if (logButton != null) {
             logButton.setOnClickListener(new View.OnClickListener(){
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+        //Adds functionality for the map button
         Button viewButton = (Button) findViewById(R.id.mainViewButton);
         if (viewButton != null) {
             viewButton.setOnClickListener(new View.OnClickListener(){
