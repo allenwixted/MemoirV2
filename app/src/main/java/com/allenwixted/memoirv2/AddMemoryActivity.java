@@ -38,8 +38,7 @@ public class AddMemoryActivity extends AppCompatActivity
             double longitude = location.getLongitude();
             double latitude = location.getLatitude();
 
-        }
-        else //if GPS permission is disabled, notify user to enable it
+        } else //if GPS permission is disabled, notify user to enable it
         {
             Context context = getApplicationContext();
             CharSequence text = "GPS Permission Disabled, Please Enable!";
@@ -83,9 +82,9 @@ public class AddMemoryActivity extends AppCompatActivity
 
         Button saveButton = (Button) findViewById(R.id.saveButton);
         if (saveButton != null) {
-            saveButton.setOnClickListener(new View.OnClickListener(){
+            saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v){
+                public void onClick(View v) {
 
                     Context context = getApplicationContext();
 
@@ -97,26 +96,27 @@ public class AddMemoryActivity extends AppCompatActivity
 
                     //Title of Memory
                     EditText title = (EditText) findViewById(R.id.editText);
-                    String titleText = title.getText().toString();
-
-                    //Description of Memory
                     EditText description = (EditText) findViewById(R.id.editText2);
-                    String descText = description.getText().toString();
 
+                    if (title != null && description != null)
+                    {
+                        String titleText = title.getText().toString();
+                        String descText = description.getText().toString();
 
-                    //Write info to each file
-                    writeToFile(getString(R.string.title), String.format("%s\n", titleText));
-                    writeToFile(getString(R.string.desc),String.format("%s\n", descText));
-                    writeToFile(getString(R.string.lon),String.format("%f\n", longitude));
-                    writeToFile(getString(R.string.lat),String.format("%f\n", latitude));
+                        //Write info to each file
+                        writeToFile(getString(R.string.title), String.format("%s\n", titleText));
+                        writeToFile(getString(R.string.desc), String.format("%s\n", descText));
+                        writeToFile(getString(R.string.lon), String.format("%f\n", longitude));
+                        writeToFile(getString(R.string.lat), String.format("%f\n", latitude));
 
-                    //Create toast to notify user that memory has been saved
-                    CharSequence text = "Memory Saved!";
-                    int duration = Toast.LENGTH_SHORT;
+                        //Create toast to notify user that memory has been saved
+                        CharSequence text = "Memory Saved!";
+                        int duration = Toast.LENGTH_SHORT;
 
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
 
+                    }
                 }
             });
         }
