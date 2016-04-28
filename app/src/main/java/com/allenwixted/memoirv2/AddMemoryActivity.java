@@ -225,10 +225,12 @@ public class AddMemoryActivity extends AppCompatActivity {
 
     public void writeFile(String fileName, String text)
     {
+        Context context = getApplicationContext();
+        Log.i("DIRECTORY", "")
 
         FileOutputStream fOut = null;
         try {
-            fOut = openFileOutput(fileName, MODE_APPEND);
+            fOut = openFileOutput(String.format("%s", fileName), MODE_APPEND);
             OutputStreamWriter osw = new OutputStreamWriter(fOut);
             osw.write(text);
             Log.i("Write", text);
@@ -240,6 +242,16 @@ public class AddMemoryActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    public double getLatitude()
+    {
+        return latitude;
+    }
+
+    public double getLongitudee()
+    {
+        return longitude;
     }
 
     @Override

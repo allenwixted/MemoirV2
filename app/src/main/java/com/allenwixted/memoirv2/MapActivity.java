@@ -207,7 +207,7 @@ public class MapActivity extends AppCompatActivity {
             FileInputStream fis = null;
             try {
 
-
+                Log.i("Empty File", "EMPTY");
                 fis = new FileInputStream(file);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
                 while (fis.available() > 0) {
@@ -224,6 +224,7 @@ public class MapActivity extends AppCompatActivity {
                     }
             }
         }
+        Log.i("File doesn't exist", "EXISTENTIAL CRISIS");
     }
 
     public void readLongitude() {
