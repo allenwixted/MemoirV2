@@ -31,7 +31,7 @@
             android:value="AIzaSyBihlHuDZ-WJL3LKjKMOmFlFWfxtl0UztE" />
 
 
-
+        <activity android:name=".info_window_contents" >
         <activity android:name=".helpActivity"></activity>
     </application>
 
