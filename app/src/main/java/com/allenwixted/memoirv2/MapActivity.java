@@ -212,6 +212,7 @@ public class MapActivity extends AppCompatActivity {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
                 while (fis.available() > 0) {
                     lats.add(reader.readLine());
+                    Log.i("ReadLatitude", "LATITUDE");
                 }
             } catch (Exception e) {
                 Log.d("MemoryRead", e.toString());
@@ -237,6 +238,7 @@ public class MapActivity extends AppCompatActivity {
                 while (fis.available() > 0) {
 
                     longs.add(reader.readLine());
+                    Log.i("ReadLongitude", "LONGITUDE");
                 }
             } catch (Exception e) {
                 Log.d("MemoryRead", e.toString());
@@ -263,6 +265,7 @@ public class MapActivity extends AppCompatActivity {
                 while (fis.available() > 0) {
 
                     titles.add(reader.readLine());
+                    Log.i("ReadTitles", "TITLES");
                 }
             } catch (Exception e) {
                 Log.d("MemoryRead", e.toString());
@@ -290,6 +293,7 @@ public class MapActivity extends AppCompatActivity {
                 while (fis.available() > 0) {
 
                     descr.add(reader.readLine());
+                    Log.i("ReadDescription", "DESCRIPTION");
                 }
             } catch (Exception e) {
                 Log.d("MemoryRead", e.toString());
