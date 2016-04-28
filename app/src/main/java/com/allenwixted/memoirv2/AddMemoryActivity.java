@@ -22,10 +22,14 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 public class AddMemoryActivity extends AppCompatActivity {
 
@@ -106,12 +110,24 @@ public class AddMemoryActivity extends AppCompatActivity {
                     if (title != null && description != null) {
                         String titleText = title.getText().toString();
                         String descText = description.getText().toString();
+                        //Toast toast2 = Toast.makeText(context, text2, Toast.LENGTH_LONG);
+                        //toast2.show();
+
 
                         //Write info to each file
-                        writeToFile(getString(R.string.title), String.format("%s\n", titleText));
-                        writeToFile(getString(R.string.desc), String.format("%s\n", descText));
-                        writeToFile(getString(R.string.lon), String.format("%f\n", longitude));
-                        writeToFile(getString(R.string.lat), String.format("%f\n", latitude));
+                        //writeToFile(getString(R.string.title), String.format("%s\n", titleText));
+                        //writeToFile(getString(R.string.desc), String.format("%s\n", descText));
+                        //writeToFile(getString(R.string.lon), String.format("%f\n", longitude));
+                        //writeToFile(getString(R.string.lat), String.format("%f\n", latitude));
+
+                        writeFile(getString(R.string.title), String.format("%s\n", titleText));
+                        writeFile(getString(R.string.desc), String.format("%s\n", descText));
+                        writeFile(getString(R.string.lat), String.format("%s\n", latitude));
+                        writeFile(getString(R.string.lon), String.format("%s\n", longitude));
+
+                        //Test of lat and long writing
+                        //writeToFile(getString(R.string.lon), String.format("%f\n", 73.89595049));
+                        //writeToFile(getString(R.string.lat), String.format("%f\n", -34.89593812));
 
                         //Create toast to notify user that memory has been saved
                         CharSequence text = "Memory Saved!";
@@ -120,8 +136,11 @@ public class AddMemoryActivity extends AppCompatActivity {
                         //Toast toast = Toast.makeText(context, text, duration);
                         //toast.show();
 
-                        CharSequence text2 = readFile(String.format("%s/%s", context.getFilesDir(), getString(R.string.title)));
+                        //CharSequence text2 = readFile(String.format("%s/%s", context.getFilesDir(), getString(R.string.title)));
 
+
+                        CharSequence text2 = readFile(String.format("%s/%s", context.getFilesDir(), getString(R.string.title)));
+                        System.out.println(text2);
                         Toast toast2 = Toast.makeText(context, text2, Toast.LENGTH_LONG);
                         toast2.show();
 
@@ -198,11 +217,11 @@ public class AddMemoryActivity extends AppCompatActivity {
             try
             {
                 fis = new FileInputStream(file);
-                char current;
+                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+
                 while (fis.available() > 0)
                 {
-                    current = (char) fis.read();
-                    result = result + String.valueOf(current);
+                    result = result + reader.readLine() + "\n";
                 }
             } catch (Exception e)
             {
@@ -218,5 +237,23 @@ public class AddMemoryActivity extends AppCompatActivity {
             }
         }
         return result;
+    }
+
+    public void writeFile(String fileName, String text)
+    {
+
+        FileOutputStream fOut = null;
+        try {
+            fOut = openFileOutput(fileName, MODE_APPEND);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+            osw.write(text);
+            osw.flush();
+            osw.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
