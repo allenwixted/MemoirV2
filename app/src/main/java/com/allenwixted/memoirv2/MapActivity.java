@@ -75,9 +75,9 @@ public class MapActivity extends AppCompatActivity {
         markerDataCollection.add(
                 new PictureMarkerDataModel(
                         R.drawable.rubbish,
-                        "Apartment 2",
-                        "Crows have pulled rubbish out of the bins",
-                        new LatLng(52.65657586737293, -8.632850644472683)
+                        titles.get(0),
+                        descr.get(0),
+                        new LatLng(Double.parseDouble(lats.get(0)), Double.parseDouble(longs.get(0)))
                 )
         );
         markerDataCollection.add(
