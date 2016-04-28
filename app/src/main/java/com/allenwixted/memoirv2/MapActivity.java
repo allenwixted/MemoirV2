@@ -62,13 +62,13 @@ public class MapActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        titles.add("Proposal Spot");
-        descr.add("Oh mu Gawd, Soooo romantic!");
-        lats.add("52.65657586737293");
-        longs.add("-8.545454523");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        readTitle();
+        readDescription();
+        readLatitude();
+        readLongitude();
 
         mMapFragment = MapFragment.newInstance();
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
@@ -76,18 +76,15 @@ public class MapActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
         markerDataCollection = new ArrayList<>();
-        for(int i = 0; i<titles.size();i++) {
-            markerDataCollection.add(
-                    new PictureMarkerDataModel(
-                            R.drawable.rubbish,
-                            titles.get(i),
-                            descr.get(i),
-                            new LatLng(Double.parseDouble(lats.get(i)), Double.parseDouble(longs.get(i)))
-                    )
-            );
-
-        }
-
+        for(int i = 0; i < titles.size();i++){
+        markerDataCollection.add(
+                new PictureMarkerDataModel(
+                        R.drawable.rubbish,
+                        titles.get(i),
+                        descr.get(i),
+                        new LatLng(Double.parseDouble(lats.get(i)) + 1, Double.parseDouble(longs.get(i) +1))
+                )
+        );}
         markerDataCollection.add(
                 new PictureMarkerDataModel(
                         R.drawable.graffiti,
@@ -167,10 +164,6 @@ public class MapActivity extends AppCompatActivity {
             });
         }
 
-        readTitle();
-        readDescription();
-        readLatitude();
-        readLongitude();
 
     }
 
@@ -214,7 +207,6 @@ public class MapActivity extends AppCompatActivity {
             FileInputStream fis = null;
             try {
 
-                Log.i("Empty File", "EMPTY");
                 fis = openFileInput(String.format("%s.txt",getString(R.string.lat)));
                 BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
                 while (fis.available() > 0) {
