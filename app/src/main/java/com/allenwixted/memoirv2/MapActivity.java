@@ -228,7 +228,7 @@ public class MapActivity extends AppCompatActivity {
     public void readLongitude() {
 
         final Context context = getApplicationContext();
-        File file = new File(String.format("%s"getString(R.string.lon)));
+        File file = new File(String.format("%s",getString(R.string.lon)));
         if (file.exists()) {
             FileInputStream fis = null;
             try {
@@ -254,7 +254,7 @@ public class MapActivity extends AppCompatActivity {
 
         final Context context = getApplicationContext();
 
-        File file = new File(String.format("%s"getString(R.string.title)));
+        File file = new File(String.format("%s",getString(R.string.title)));
         if (file.exists()) {
             FileInputStream fis = null;
             try {
@@ -281,7 +281,7 @@ public class MapActivity extends AppCompatActivity {
 
         final Context context = getApplicationContext();
 
-        File file = new File(String.format("%s"), getString(R.string.desc)));
+        File file = new File(String.format("%s", getString(R.string.desc)));
         if (file.exists()) {
             FileInputStream fis = null;
             try {
