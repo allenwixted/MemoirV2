@@ -206,13 +206,12 @@ public class MapActivity extends AppCompatActivity {
     public void readLatitude() {
 
         final Context context = getApplicationContext();
-        File file = new File(String.format("%s",getString(R.string.lat)));
-        if (file.exists()) {
+
             FileInputStream fis = null;
             try {
 
                 Log.i("Empty File", "EMPTY");
-                fis = new FileInputStream(file);
+                fis = openFileInput(String.format("%s.txt",getString(R.string.lat)));
                 BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
                 while (fis.available() > 0) {
                     lats.add(reader.readLine());
@@ -228,17 +227,16 @@ public class MapActivity extends AppCompatActivity {
                     }
             }
         }
-        Log.i("File doesn't exist", "EXISTENTIAL CRISIS");
-    }
+
+
 
     public void readLongitude() {
 
         final Context context = getApplicationContext();
-        File file = new File(String.format("%s",getString(R.string.lon)));
-        if (file.exists()) {
+
             FileInputStream fis = null;
             try {
-                fis = new FileInputStream(file);
+                fis = openFileInput(String.format("%s.txt",getString(R.string.lon)));
                 BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
                 while (fis.available() > 0) {
 
@@ -254,18 +252,16 @@ public class MapActivity extends AppCompatActivity {
                     } catch (IOException ignored) {
                     }
             }
-        }
+
     }
 
     public void readTitle() {
 
         final Context context = getApplicationContext();
 
-        File file = new File(String.format("%s",getString(R.string.title)));
-        if (file.exists()) {
             FileInputStream fis = null;
             try {
-                fis = new FileInputStream(file);
+                fis = openFileInput(String.format("%s.txt",getString(R.string.title)));
                 BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
                 while (fis.available() > 0) {
 
@@ -283,17 +279,15 @@ public class MapActivity extends AppCompatActivity {
             }
         }
 
-    }
+
 
     public void readDescription() {
 
         final Context context = getApplicationContext();
 
-        File file = new File(String.format("%s", getString(R.string.desc)));
-        if (file.exists()) {
             FileInputStream fis = null;
             try {
-                fis = new FileInputStream(file);
+                fis = openFileInput(String.format("%s.txt",getString(R.string.desc)));
                 BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
                 while (fis.available() > 0) {
 
@@ -312,4 +306,3 @@ public class MapActivity extends AppCompatActivity {
         }
 
     }
-}

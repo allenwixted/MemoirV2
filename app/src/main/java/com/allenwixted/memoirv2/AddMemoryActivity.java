@@ -123,7 +123,7 @@ public class AddMemoryActivity extends AppCompatActivity {
                         writeFile(getString(R.string.lat), String.format("%s\n", latitude));
                         writeFile(getString(R.string.lon), String.format("%s\n", longitude));
 
-                        CharSequence text = readFile(String.format("%s", getString(R.string.title)));
+                        CharSequence text = readFile(getString(R.string.title));
                         Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
                         toast.show();
 
@@ -192,16 +192,15 @@ public class AddMemoryActivity extends AppCompatActivity {
 
     public String readFile(String fileName)
     {
-
+        Context context = getApplicationContext();
         String result = "";
-        File file = new File(fileName);
-        if (file.exists())
-        {
+        Log.i("DIRECTORY R", context.getFilesDir().toString());
 
             FileInputStream fis = null;
+
             try
             {
-                fis = openFileInput(file.toString());
+                fis = openFileInput(String.format("%s.txt",fileName));
                 BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
 
                     result = reader.readLine();
@@ -219,18 +218,18 @@ public class AddMemoryActivity extends AppCompatActivity {
                     {
                     }
             }
-        }
+        //}
         return result;
     }
 
     public void writeFile(String fileName, String text)
     {
         Context context = getApplicationContext();
-        Log.i("DIRECTORY", "");
+        Log.i("DIRECTORY W", context.getFilesDir().toString());
 
         FileOutputStream fOut = null;
         try {
-            fOut = openFileOutput(String.format("%s", fileName), MODE_APPEND);
+            fOut = openFileOutput(String.format("%s.txt", fileName), MODE_APPEND);
             OutputStreamWriter osw = new OutputStreamWriter(fOut);
             osw.write(text);
             Log.i("Write", text);
