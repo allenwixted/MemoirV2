@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -33,6 +34,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
@@ -44,6 +46,7 @@ public class AddMemoryActivity extends AppCompatActivity {
     public static double latitude;
     public static double longitude;
     private ImageView imgChosenPhoto; //This is the photo chosen by the user
+    private Uri pictureUri; //Uri path for images, yo!
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -63,6 +66,7 @@ public class AddMemoryActivity extends AppCompatActivity {
         //Check permissions of GPS
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 0);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -152,7 +156,7 @@ public class AddMemoryActivity extends AppCompatActivity {
                     File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
                     String pictureName = getPictureName();
                     File imageFile = new File(pictureDirectory, pictureName);
-                    Uri pictureUri = Uri.fromFile(imageFile);
+                    pictureUri = Uri.fromFile(imageFile);
 
                     //store the image at this Uri
                     cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri);
@@ -258,13 +262,20 @@ public class AddMemoryActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
         //did the user press OK?
         if(resultCode == RESULT_OK){
             if(requestCode == CAMERA_REQUEST){
-                //comm back to the camera and get the image as a bitmap
-//                Bitmap cameraImage = (Bitmap) data.getExtras().get("data");
-//                imgChosenPhoto.setImageBitmap(cameraImage);
+
+                //get input stream based on image's URI
+                InputStream inputStream;
+                try { //tries to get a bitmap image from the steam
+                    inputStream = getContentResolver().openInputStream(pictureUri);
+                    Bitmap image = BitmapFactory.decodeStream(inputStream);
+                    imgChosenPhoto.setImageBitmap(image);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Unable to read the image from your phone", Toast.LENGTH_LONG).show();
+                }
             }
         }
     }
