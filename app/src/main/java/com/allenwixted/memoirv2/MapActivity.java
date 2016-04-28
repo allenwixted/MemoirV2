@@ -62,10 +62,6 @@ public class MapActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        titles.add("Proposal Spot");
-        descr.add("Oh mu Gawd, Soooo romantic!");
-        lats.add("52.65657586737293");
-        longs.add("-8.545454523");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
@@ -76,14 +72,15 @@ public class MapActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
         markerDataCollection = new ArrayList<>();
+        for(int i = 0; i < titles.size();i++){
         markerDataCollection.add(
                 new PictureMarkerDataModel(
                         R.drawable.rubbish,
-                        titles.get(0),
-                        descr.get(0),
-                        new LatLng(Double.parseDouble(lats.get(0)), Double.parseDouble(longs.get(0)))
+                        titles.get(i),
+                        descr.get(i),
+                        new LatLng(Double.parseDouble(lats.get(i)), Double.parseDouble(longs.get(i)))
                 )
-        );
+        );}
         markerDataCollection.add(
                 new PictureMarkerDataModel(
                         R.drawable.graffiti,
