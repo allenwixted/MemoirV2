@@ -243,16 +243,6 @@ public class AddMemoryActivity extends AppCompatActivity {
 
     }
 
-    public static double getLatitude()
-    {
-        return latitude;
-    }
-
-    public static double getLongitudee()
-    {
-        return longitude;
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

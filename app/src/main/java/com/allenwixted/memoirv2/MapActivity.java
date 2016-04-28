@@ -65,6 +65,10 @@ public class MapActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        readTitle();
+        readDescription();
+        readLatitude();
+        readLongitude();
 
         mMapFragment = MapFragment.newInstance();
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
@@ -78,7 +82,7 @@ public class MapActivity extends AppCompatActivity {
                         R.drawable.rubbish,
                         titles.get(i),
                         descr.get(i),
-                        new LatLng(Double.parseDouble(lats.get(i)), Double.parseDouble(longs.get(i)))
+                        new LatLng(Double.parseDouble(lats.get(i)) + 1, Double.parseDouble(longs.get(i) +1))
                 )
         );}
         markerDataCollection.add(
@@ -160,10 +164,6 @@ public class MapActivity extends AppCompatActivity {
             });
         }
 
-        readTitle();
-        readDescription();
-        readLatitude();
-        readLongitude();
 
     }
 
@@ -207,7 +207,6 @@ public class MapActivity extends AppCompatActivity {
             FileInputStream fis = null;
             try {
 
-                Log.i("Empty File", "EMPTY");
                 fis = openFileInput(String.format("%s.txt",getString(R.string.lat)));
                 BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
                 while (fis.available() > 0) {
