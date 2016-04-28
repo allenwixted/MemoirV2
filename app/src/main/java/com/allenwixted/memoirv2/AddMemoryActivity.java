@@ -37,8 +37,8 @@ import java.io.OutputStreamWriter;
 public class AddMemoryActivity extends AppCompatActivity {
 
     public static final int CAMERA_REQUEST = 10; //10 is unique identifier for camera photo capture
-    double latitude;
-    double longitude;
+    public static double latitude;
+    public static double longitude;
     private ImageView imgChosenPhoto; //This is the photo chosen by the user
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -226,7 +226,7 @@ public class AddMemoryActivity extends AppCompatActivity {
     public void writeFile(String fileName, String text)
     {
         Context context = getApplicationContext();
-        Log.i("DIRECTORY", "")
+        Log.i("DIRECTORY", "");
 
         FileOutputStream fOut = null;
         try {
@@ -244,12 +244,12 @@ public class AddMemoryActivity extends AppCompatActivity {
 
     }
 
-    public double getLatitude()
+    public static double getLatitude()
     {
         return latitude;
     }
 
-    public double getLongitudee()
+    public static double getLongitudee()
     {
         return longitude;
     }
