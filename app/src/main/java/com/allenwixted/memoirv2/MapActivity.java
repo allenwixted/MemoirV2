@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import java.util.Random;
+
 
 import static com.allenwixted.memoirv2.R.string.lat;
 
@@ -62,6 +64,7 @@ public class MapActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Random rand = new Random();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
@@ -76,15 +79,17 @@ public class MapActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
         markerDataCollection = new ArrayList<>();
+
         for(int i = 0; i < titles.size();i++){
         markerDataCollection.add(
                 new PictureMarkerDataModel(
                         R.drawable.rubbish,
                         titles.get(i),
                         descr.get(i),
-                        new LatLng(Double.parseDouble(lats.get(i)) + 1, Double.parseDouble(longs.get(i) +1))
+                        new LatLng(Double.parseDouble(lats.get(i)) + rand.nextInt(5), Double.parseDouble(longs.get(i) +rand.nextInt(5)))
                 )
         );}
+
         markerDataCollection.add(
                 new PictureMarkerDataModel(
                         R.drawable.graffiti,
@@ -148,6 +153,8 @@ public class MapActivity extends AppCompatActivity {
             }
         });
 
+
+
         Button goButton = (Button) findViewById(R.id.go_button);
         if (goButton != null) {
             goButton.setOnClickListener(new View.OnClickListener() {
@@ -164,6 +171,26 @@ public class MapActivity extends AppCompatActivity {
             });
         }
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        Random rand = new Random();
+        super.onResume();
+        for(int i = 0; i < titles.size();i++){
+            markerDataCollection.add(
+                    new PictureMarkerDataModel(
+                            R.drawable.rubbish,
+                            titles.get(i),
+                            descr.get(i),
+                            // Replace the randoms with "+1" after debugging is complete
+                            new LatLng(Double.parseDouble(lats.get(i)) + rand.nextInt(5), Double.parseDouble(longs.get(i) +rand.nextInt(5)))
+
+                    )
+            );
+            // Debugging
+            Log.i("map","TESTER "+ i);}
 
     }
 

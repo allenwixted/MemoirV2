@@ -127,11 +127,15 @@ public class AddMemoryActivity extends AppCompatActivity {
                         writeFile(getString(R.string.lat), String.format("%s\n", latitude));
                         writeFile(getString(R.string.lon), String.format("%s\n", longitude));
 
-                        CharSequence text = readFile(getString(R.string.title));
+                        CharSequence text = "Memory Added";
                         Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
                         toast.show();
 
                     }
+
+                    Intent intent = new Intent(v.getContext(), MapActivity.class);
+                    startActivity(intent);
+
                 }
             });
         }
