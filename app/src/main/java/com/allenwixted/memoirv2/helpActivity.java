@@ -27,18 +27,8 @@ public class helpActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
 
-        if(id == R.id.action_map){
-            Intent i = new Intent(getApplicationContext(), MapActivity.class);
-            startActivity(i);
-            return true;
-        }
-        else if(id == R.id.action_help){
+        if(id == R.id.action_help){
             Intent i = new Intent(getApplicationContext(), helpActivity.class);
-            startActivity(i);
-            return true;
-        }
-        else if(id == R.id.action_log){
-            Intent i = new Intent(getApplicationContext(), AddMemoryActivity.class);
             startActivity(i);
             return true;
         }

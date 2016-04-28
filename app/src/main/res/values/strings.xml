@@ -7,7 +7,5 @@
     <string name="lon">Longitudes</string>
 
     <string name="menu_help">Help</string>
-    <string name="menu_map">Map</string>
-    <string name="menu_log">Log Memory</string>
 
 </resources>

@@ -9,7 +9,9 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +35,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddMemoryActivity extends AppCompatActivity {
 
@@ -140,7 +144,21 @@ public class AddMemoryActivity extends AppCompatActivity {
                 public void onClick(View cam) {
 
                     Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+
+                    File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                    String pictureName = getPictureName();
+                    File imageFile = new File(pictureDirectory, pictureName);
+                    Uri pictureUri = Uri.fromFile(imageFile);
+
+                    //store the image at this Uri
+                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, pictureUri);
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                }
+
+                private String getPictureName() {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+                    String timestamp = sdf.format(new Date());
+                    return "capturedImage" + timestamp + ".jpg";
                 }
             });
         }
@@ -164,20 +182,9 @@ public class AddMemoryActivity extends AppCompatActivity {
     {
         int id = item.getItemId();
 
-        if (id == R.id.action_map)
-        {
-            Intent i = new Intent(getApplicationContext(), MapActivity.class);
-            startActivity(i);
-            return true;
-        } else if (id == R.id.action_help)
-        {
+        if (id == R.id.action_help){
+
             Intent i = new Intent(getApplicationContext(), helpActivity.class);
-            startActivity(i);
-            return true;
-        }
-        else if(id == R.id.action_log)
-        {
-            Intent i = new Intent(getApplicationContext(), AddMemoryActivity.class);
             startActivity(i);
             return true;
         }
@@ -252,8 +259,8 @@ public class AddMemoryActivity extends AppCompatActivity {
         if(resultCode == RESULT_OK){
             if(requestCode == CAMERA_REQUEST){
                 //comm back to the camera and get the image as a bitmap
-                Bitmap cameraImage = (Bitmap) data.getExtras().get("data");
-                imgChosenPhoto.setImageBitmap(cameraImage);
+//                Bitmap cameraImage = (Bitmap) data.getExtras().get("data");
+//                imgChosenPhoto.setImageBitmap(cameraImage);
             }
         }
     }
