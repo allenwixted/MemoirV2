@@ -110,40 +110,15 @@ public class AddMemoryActivity extends AppCompatActivity {
                     if (title != null && description != null) {
                         String titleText = title.getText().toString();
                         String descText = description.getText().toString();
-                        //Toast toast2 = Toast.makeText(context, text2, Toast.LENGTH_LONG);
-                        //toast2.show();
-
-
-                        //Write info to each file
-                        //writeToFile(getString(R.string.title), String.format("%s\n", titleText));
-                        //writeToFile(getString(R.string.desc), String.format("%s\n", descText));
-                        //writeToFile(getString(R.string.lon), String.format("%f\n", longitude));
-                        //writeToFile(getString(R.string.lat), String.format("%f\n", latitude));
 
                         writeFile(getString(R.string.title), String.format("%s\n", titleText));
                         writeFile(getString(R.string.desc), String.format("%s\n", descText));
                         writeFile(getString(R.string.lat), String.format("%s\n", latitude));
                         writeFile(getString(R.string.lon), String.format("%s\n", longitude));
 
-                        //Test of lat and long writing
-                        //writeToFile(getString(R.string.lon), String.format("%f\n", 73.89595049));
-                        //writeToFile(getString(R.string.lat), String.format("%f\n", -34.89593812));
-
-                        //Create toast to notify user that memory has been saved
-                        CharSequence text = "Memory Saved!";
-                        int duration = Toast.LENGTH_SHORT;
-
-                        //Toast toast = Toast.makeText(context, text, duration);
-                        //toast.show();
-
-                        //CharSequence text2 = readFile(String.format("%s/%s", context.getFilesDir(), getString(R.string.title)));
-
-
-                        CharSequence text2 = readFile(String.format("%s/%s", context.getFilesDir(), getString(R.string.title)));
-                        System.out.println(text2);
-                        Toast toast2 = Toast.makeText(context, text2, Toast.LENGTH_LONG);
-                        toast2.show();
-
+                        CharSequence text = readFile(String.format("%s", getString(R.string.title)));
+                        Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
+                        toast.show();
 
                     }
                 }
@@ -151,20 +126,6 @@ public class AddMemoryActivity extends AppCompatActivity {
         }
     }
 
-    //Write data to specified file
-    private void writeToFile(String filename, String data)
-    {
-        FileOutputStream outputStream;
-        try
-        {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-            outputStream.write(data.getBytes());
-            outputStream.close();
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
 
     //Adds a custom menu to the activity
     @Override
@@ -206,23 +167,23 @@ public class AddMemoryActivity extends AppCompatActivity {
     }
 
 
-    public static String readFile(String filePath)
+    public String readFile(String fileName)
     {
 
         String result = "";
-        File file = new File(filePath);
+        File file = new File(fileName);
         if (file.exists())
         {
+
             FileInputStream fis = null;
             try
             {
-                fis = new FileInputStream(file);
+                fis = openFileInput(file.toString());
                 BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
 
-                while (fis.available() > 0)
-                {
-                    result = result + reader.readLine() + "\n";
-                }
+                    result = reader.readLine();
+                    Log.i("Read", result);
+
             } catch (Exception e)
             {
                 Log.d("MemoryRead", e.toString());
@@ -247,6 +208,7 @@ public class AddMemoryActivity extends AppCompatActivity {
             fOut = openFileOutput(fileName, MODE_APPEND);
             OutputStreamWriter osw = new OutputStreamWriter(fOut);
             osw.write(text);
+            Log.i("Write", text);
             osw.flush();
             osw.close();
         } catch (FileNotFoundException e) {
