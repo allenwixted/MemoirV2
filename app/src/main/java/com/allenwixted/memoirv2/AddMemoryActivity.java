@@ -5,10 +5,12 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
@@ -33,8 +36,10 @@ import java.io.OutputStreamWriter;
 
 public class AddMemoryActivity extends AppCompatActivity {
 
+    public static final int CAMERA_REQUEST = 10; //10 is unique identifier for camera photo capture
     double latitude;
     double longitude;
+    private ImageView imgChosenPhoto; //This is the photo chosen by the user
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -53,6 +58,8 @@ public class AddMemoryActivity extends AppCompatActivity {
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //Check permissions of GPS
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 0);
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             longitude = location.getLongitude();
@@ -149,6 +156,22 @@ public class AddMemoryActivity extends AppCompatActivity {
                 }
             });
         }
+
+        Button photoButtonCapture = (Button) findViewById(R.id.photoButton);
+        if (photoButtonCapture != null) {
+            photoButtonCapture.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View cam) {
+
+                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                }
+            });
+        }
+
+        //get the image and cast to image view
+        imgChosenPhoto = (ImageView) findViewById(R.id.chosenImage);
     }
 
     //Write data to specified file
@@ -255,5 +278,21 @@ public class AddMemoryActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        //did the user press OK?
+        if(resultCode == RESULT_OK){
+            if(requestCode == CAMERA_REQUEST){
+                //comm back to the camera and get the image as a bitmap
+                Bitmap cameraImage = (Bitmap) data.getExtras().get("data");
+                imgChosenPhoto.setImageBitmap(cameraImage);
+            }
+        }
     }
 }

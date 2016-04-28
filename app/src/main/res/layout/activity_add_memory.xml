@@ -44,13 +44,17 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Photo"
+        android:text="Take Photo"
         android:id="@+id/photoButton"
         android:layout_below="@+id/editText2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="Add Photo"
-        android:layout_margin="10dp" />
+        android:hint="Take Photo"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toLeftOf="@+id/button"
+        android:layout_toStartOf="@+id/button" />
 
     <Button
         android:layout_width="wrap_content"
@@ -64,10 +68,20 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
+        android:id="@+id/chosenImage"
         android:scaleType="centerInside"
         android:src="@drawable/ic_add_a_photo_black_24px"
         android:layout_below="@+id/photoButton"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/saveButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Saved Photo"
+        android:id="@+id/button"
+        android:layout_alignTop="@+id/photoButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
