@@ -66,15 +66,17 @@
         android:layout_margin="10dp" />
 
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/chosenImage"
-        android:scaleType="centerInside"
+        android:scaleType="fitCenter"
         android:src="@drawable/ic_add_a_photo_black_24px"
         android:layout_below="@+id/photoButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/saveButton" />
+        android:layout_above="@+id/saveButton"
+        android:layout_alignRight="@+id/button"
+        android:layout_alignEnd="@+id/button" />
 
     <Button
         android:layout_width="wrap_content"
