@@ -59,6 +59,10 @@ public class MapActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        titles.add("Proposal Spot");
+        descr.add("Oh mu Gawd, Soooo romantic!");
+        lats.add("-54.37834945");
+        longs.add("8.545454523");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
