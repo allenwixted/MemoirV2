@@ -22,8 +22,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddMemoryActivity" />
-        <activity android:name=".MapActivity" />
+        
+        <activity android:name=".AddMemoryActivity" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".AddMemoryActivity" />
+        </activity>
+        
+        <activity android:name=".MapActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MapActivity" />
+        </activity>
         <activity android:name=".MemoryInfoActivity" />
 
         <meta-data
@@ -32,7 +42,11 @@
 
 
         <activity android:name=".info_window_contents" />
-        <activity android:name=".helpActivity"></activity>
+        <activity android:name=".helpActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MapActivity" />
+        </activity>
     </application>
 
 </manifest>
