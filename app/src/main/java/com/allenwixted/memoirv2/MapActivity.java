@@ -54,6 +54,9 @@ public class MapActivity extends AppCompatActivity {
     ArrayList<String> longs = new ArrayList<>(1);
 
     MapFragment mMapFragment;
+    // Gets the users current location to view this area when map is opened. NOTE: on emulator it will give you 0,0 by default
+    LatLng myCurrentLoc = new LatLng(AddMemoryActivity.latitude, AddMemoryActivity.longitude);
+    // Creates a location for limerick, pressing button brings you there
     LatLng limerickLocation = new LatLng(52.66136550517293, -8.624267575625026);
     ArrayList<PictureMarkerDataModel> markerDataCollection;
 
@@ -61,8 +64,9 @@ public class MapActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         titles.add("Proposal Spot");
         descr.add("Oh mu Gawd, Soooo romantic!");
-        lats.add("-54.37834945");
-        longs.add("8.545454523");
+        lats.add("52.65657586737293");
+        longs.add("-8.545454523");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
@@ -101,7 +105,7 @@ public class MapActivity extends AppCompatActivity {
                     );
                 }
                 googleMap.moveCamera(CameraUpdateFactory
-                        .newLatLngZoom(limerickLocation, 7));
+                        .newLatLngZoom(myCurrentLoc, 7));
 
                 googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
