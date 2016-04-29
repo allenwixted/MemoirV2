@@ -49,12 +49,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 // End Stuart Imports
 
 
-public class MapActivity extends AppCompatActivity {
-
-    ArrayList<String> titles = new ArrayList<>(1);
-    ArrayList<String> descr = new ArrayList<>(1);
-    ArrayList<String> lats = new ArrayList<>(1);
-    ArrayList<String> longs = new ArrayList<>(1);
+public class MapActivity extends AddMemoryActivity {
 
     MapFragment mMapFragment;
     // Gets the users current location to view this area when map is opened. NOTE: on emulator it will give you 0,0 by default
@@ -69,10 +64,10 @@ public class MapActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        readTitle();
-        readDescription();
-        readLatitude();
-        readLongitude();
+//        readTitle();
+//        readDescription();
+//        readLatitude();
+//        readLongitude();
 
         mMapFragment = MapFragment.newInstance();
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
@@ -86,8 +81,8 @@ public class MapActivity extends AppCompatActivity {
                 new PictureMarkerDataModel(
                         R.drawable.rubbish,
                         titles.get(i),
-                        descr.get(i),
-                        new LatLng(Double.parseDouble(lats.get(i)) + rand.nextInt(5), Double.parseDouble(longs.get(i) +rand.nextInt(5)))
+                        descriptions.get(i),
+                        new LatLng(Double.parseDouble(latitudes.get(i)) + rand.nextInt(5), Double.parseDouble(longitudes.get(i) +rand.nextInt(5)))
                 )
         );}
 
@@ -186,9 +181,9 @@ public class MapActivity extends AppCompatActivity {
                     new PictureMarkerDataModel(
                             R.drawable.rubbish,
                             titles.get(i),
-                            descr.get(i),
+                            descriptions.get(i),
                             // Replace the randoms with "+1" after debugging is complete
-                            new LatLng(Double.parseDouble(lats.get(i)) + rand.nextInt(5), Double.parseDouble(longs.get(i) +rand.nextInt(5)))
+                            new LatLng(Double.parseDouble(latitudes.get(i)) + rand.nextInt(5), Double.parseDouble(longitudes.get(i) +rand.nextInt(5)))
 
                     )
             );
@@ -223,105 +218,105 @@ public class MapActivity extends AppCompatActivity {
 
 
 
-    public void readLatitude() {
+//    public void readLatitude() {
+//
+//        final Context context = getApplicationContext();
+//
+//            FileInputStream fis = null;
+//            try {
+//
+//                fis = openFileInput(String.format("%s.txt",getString(R.string.lat)));
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+//                while (fis.available() > 0) {
+//                    lats.add(reader.readLine());
+//                    Log.i("ReadLatitude", "LATITUDE");
+//                }
+//            } catch (Exception e) {
+//                Log.d("MemoryRead", e.toString());
+//            } finally {
+//                if (fis != null)
+//                    try {
+//                        fis.close();
+//                    } catch (IOException ignored) {
+//                    }
+//            }
+//        }
+//
+//
+//
+//    public void readLongitude() {
+//
+//        final Context context = getApplicationContext();
+//
+//            FileInputStream fis = null;
+//            try {
+//                fis = openFileInput(String.format("%s.txt",getString(R.string.lon)));
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+//                while (fis.available() > 0) {
+//
+//                    longs.add(reader.readLine());
+//                    Log.i("ReadLongitude", "LONGITUDE");
+//                }
+//            } catch (Exception e) {
+//                Log.d("MemoryRead", e.toString());
+//            } finally {
+//                if (fis != null)
+//                    try {
+//                        fis.close();
+//                    } catch (IOException ignored) {
+//                    }
+//            }
+//
+//    }
+//
+//    public void readTitle() {
+//
+//        final Context context = getApplicationContext();
+//
+//            FileInputStream fis = null;
+//            try {
+//                fis = openFileInput(String.format("%s.txt",getString(R.string.title)));
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+//                while (fis.available() > 0) {
+//
+//                    titles.add(reader.readLine());
+//                    Log.i("ReadTitles", "TITLES");
+//                }
+//            } catch (Exception e) {
+//                Log.d("MemoryRead", e.toString());
+//            } finally {
+//                if (fis != null)
+//                    try {
+//                        fis.close();
+//                    } catch (IOException ignored) {
+//                    }
+//            }
+//        }
 
-        final Context context = getApplicationContext();
-
-            FileInputStream fis = null;
-            try {
-
-                fis = openFileInput(String.format("%s.txt",getString(R.string.lat)));
-                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-                while (fis.available() > 0) {
-                    lats.add(reader.readLine());
-                    Log.i("ReadLatitude", "LATITUDE");
-                }
-            } catch (Exception e) {
-                Log.d("MemoryRead", e.toString());
-            } finally {
-                if (fis != null)
-                    try {
-                        fis.close();
-                    } catch (IOException ignored) {
-                    }
-            }
-        }
 
 
-
-    public void readLongitude() {
-
-        final Context context = getApplicationContext();
-
-            FileInputStream fis = null;
-            try {
-                fis = openFileInput(String.format("%s.txt",getString(R.string.lon)));
-                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-                while (fis.available() > 0) {
-
-                    longs.add(reader.readLine());
-                    Log.i("ReadLongitude", "LONGITUDE");
-                }
-            } catch (Exception e) {
-                Log.d("MemoryRead", e.toString());
-            } finally {
-                if (fis != null)
-                    try {
-                        fis.close();
-                    } catch (IOException ignored) {
-                    }
-            }
-
-    }
-
-    public void readTitle() {
-
-        final Context context = getApplicationContext();
-
-            FileInputStream fis = null;
-            try {
-                fis = openFileInput(String.format("%s.txt",getString(R.string.title)));
-                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-                while (fis.available() > 0) {
-
-                    titles.add(reader.readLine());
-                    Log.i("ReadTitles", "TITLES");
-                }
-            } catch (Exception e) {
-                Log.d("MemoryRead", e.toString());
-            } finally {
-                if (fis != null)
-                    try {
-                        fis.close();
-                    } catch (IOException ignored) {
-                    }
-            }
-        }
-
-
-
-    public void readDescription() {
-
-        final Context context = getApplicationContext();
-
-            FileInputStream fis = null;
-            try {
-                fis = openFileInput(String.format("%s.txt",getString(R.string.desc)));
-                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-                while (fis.available() > 0) {
-
-                    descr.add(reader.readLine());
-                    Log.i("ReadDescription", "DESCRIPTION");
-                }
-            } catch (Exception e) {
-                Log.d("MemoryRead", e.toString());
-            } finally {
-                if (fis != null)
-                    try {
-                        fis.close();
-                    } catch (IOException ignored) {
-                    }
-            }
-        }
+//    public void readDescription() {
+//
+//        final Context context = getApplicationContext();
+//
+//            FileInputStream fis = null;
+//            try {
+//                fis = openFileInput(String.format("%s.txt",getString(R.string.desc)));
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+//                while (fis.available() > 0) {
+//
+//                    descr.add(reader.readLine());
+//                    Log.i("ReadDescription", "DESCRIPTION");
+//                }
+//            } catch (Exception e) {
+//                Log.d("MemoryRead", e.toString());
+//            } finally {
+//                if (fis != null)
+//                    try {
+//                        fis.close();
+//                    } catch (IOException ignored) {
+//                    }
+//            }
+//        }
 
     }
