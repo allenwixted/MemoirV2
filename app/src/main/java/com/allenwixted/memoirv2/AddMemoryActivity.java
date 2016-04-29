@@ -48,7 +48,8 @@ public class AddMemoryActivity extends AppCompatActivity {
     public static final int CAMERA_REQUEST = 10; //10 is unique identifier for camera photo capture
     public static double latitude;
     public static double longitude;
-    private ImageView imgChosenPhoto; //This is the photo chosen by the user
+    public static ImageView imgChosenPhoto; //This is the photo chosen by the user
+    public static Bitmap image;
     private Uri pictureUri; //Uri path for images, yo!
     public static ArrayList<String> latitudes = new ArrayList<>();
     public static ArrayList<String> longitudes = new ArrayList<>();
@@ -295,7 +296,7 @@ public class AddMemoryActivity extends AppCompatActivity {
                 InputStream inputStream;
                 try { //tries to get a bitmap image from the steam
                     inputStream = getContentResolver().openInputStream(pictureUri);
-                    Bitmap image = BitmapFactory.decodeStream(inputStream);
+                    image = BitmapFactory.decodeStream(inputStream);
                     imgChosenPhoto.setImageBitmap(image);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();

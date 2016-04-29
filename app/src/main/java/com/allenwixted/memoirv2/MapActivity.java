@@ -79,21 +79,12 @@ public class MapActivity extends AddMemoryActivity {
         for(int i = 0; i < titles.size();i++){
         markerDataCollection.add(
                 new PictureMarkerDataModel(
-                        R.drawable.rubbish,
+                        R.id.map,
                         titles.get(i),
                         descriptions.get(i),
                         new LatLng(Double.parseDouble(latitudes.get(i)) + rand.nextInt(5), Double.parseDouble(longitudes.get(i) +rand.nextInt(5)))
                 )
         );}
-
-        markerDataCollection.add(
-                new PictureMarkerDataModel(
-                        R.drawable.graffiti,
-                        "Graffiti",
-                        "Some nice graffiti in an alley",
-                        new LatLng(52.663864238301855, -8.619117734316433)
-                )
-        );
 
         mMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -241,13 +232,14 @@ public class MapActivity extends AddMemoryActivity {
                                     //View.inflate(getApplicationContext(), R.layout.info_window_contents, null);
                                     // Set image
                                     ImageView contentImageView = (ImageView) contentView.findViewById(R.id.info_window_image);
-                                    contentImageView.setImageResource(markerData.getImageResId());
+                                    contentImageView.setImageBitmap(image);
                                     // Set title
                                     TextView contentTitleTextView = (TextView) contentView.findViewById(R.id.info_window_title);
                                     contentTitleTextView.setText(markerData.getTitle());
                                     // Set snippet
                                     TextView contentSnippetTextView = (TextView) contentView.findViewById(R.id.info_window_snippet);
                                     contentSnippetTextView.setText(markerData.getSnippet());
+
                                     // return newly created View
                                     return contentView;
                                 }
