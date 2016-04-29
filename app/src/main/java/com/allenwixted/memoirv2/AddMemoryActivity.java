@@ -62,6 +62,7 @@ public class AddMemoryActivity extends AppCompatActivity {
         File desc = new File(context.getFilesDir(), getString(R.string.desc));
         File lon = new File(context.getFilesDir(), getString(R.string.lon));
         File lat = new File(context.getFilesDir(), getString(R.string.lat));
+        final File imgLoc = new File(context.getFilesDir(), getString(R.string.imgLoc));
 
         //create GPS listener
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -114,7 +115,7 @@ public class AddMemoryActivity extends AppCompatActivity {
 
         Button saveButton = (Button) findViewById(R.id.saveButton);
         if (saveButton != null) {
-            saveButton.setBackgroundColor(Color.parseColor("#A8C7D9"));
+            //saveButton.setBackgroundColor(Color.parseColor("#A8C7D9"));
             saveButton.invalidate();
             saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -129,21 +130,21 @@ public class AddMemoryActivity extends AppCompatActivity {
                     if (title != null && description != null) {
                         String titleText = title.getText().toString();
                         String descText = description.getText().toString();
+                        String pictureURIString = pictureUri.toString();
 
                         writeFile(getString(R.string.title), String.format("%s\n", titleText));
                         writeFile(getString(R.string.desc), String.format("%s\n", descText));
                         writeFile(getString(R.string.lat), String.format("%s\n", latitude));
                         writeFile(getString(R.string.lon), String.format("%s\n", longitude));
+                        writeFile(getString(R.string.imgLoc), String.format("%\n", pictureURIString));
 
                         CharSequence text = "Memory Added";
                         Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
                         toast.show();
-
                     }
 
                     Intent intent = new Intent(v.getContext(), MapActivity.class);
                     startActivity(intent);
-
                 }
             });
         }
@@ -271,7 +272,6 @@ public class AddMemoryActivity extends AppCompatActivity {
         //did the user press OK?
         if(resultCode == RESULT_OK){
             if(requestCode == CAMERA_REQUEST){
-
                 //get input stream based on image's URI
                 InputStream inputStream;
                 try { //tries to get a bitmap image from the steam

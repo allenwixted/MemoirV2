@@ -7,31 +7,50 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/colorPrimary"
-    tools:context="com.allenwixted.memoirv2.MainActivity">
+    android:background="@drawable/map"
+    tools:context="com.allenwixted.memoirv2.MainActivity"
+    >
 
 
     <Toolbar
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/view">
 
     </Toolbar>
+
+    <View
+        android:id="@+id/centerShim"
+        android:layout_height="match_parent"
+        android:layout_width="10dp"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"/>
+
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:text="Log New Memory"
         android:id="@+id/mainLogButton"
-        android:textColor="#FFFFFF"
+        android:background="@color/colorPrimaryDark"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"/>
+        android:layout_alignParentLeft="true"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/centerShim"
+        android:layout_toStartOf="@+id/centerShim" />
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:text="View Memories"
         android:id="@+id/mainViewButton"
         android:textColor="#FFFFFF"
-        android:layout_below="@+id/mainLogButton"
-        android:layout_centerHorizontal="true" />
+        android:background="@color/colorPrimaryDark"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/centerShim"
+        android:layout_toEndOf="@+id/centerShim" />
+
+
 </RelativeLayout>
