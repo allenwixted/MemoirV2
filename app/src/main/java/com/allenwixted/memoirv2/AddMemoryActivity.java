@@ -50,11 +50,11 @@ public class AddMemoryActivity extends AppCompatActivity {
     public static double longitude;
     private ImageView imgChosenPhoto; //This is the photo chosen by the user
     private Uri pictureUri; //Uri path for images, yo!
-    public static ArrayList<String> latitudes;
-    public static ArrayList<String> longitudes;
-    public static ArrayList<String> titles;
-    public static ArrayList<String> descriptions;
-    public static ArrayList<String> photoPaths;
+    public static ArrayList<String> latitudes = new ArrayList<>();
+    public static ArrayList<String> longitudes = new ArrayList<>();
+    public static ArrayList<String> titles = new ArrayList<>();
+    public static ArrayList<String> descriptions = new ArrayList<>();
+    public static ArrayList<String> photoPaths = new ArrayList<>();
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -136,11 +136,18 @@ public class AddMemoryActivity extends AppCompatActivity {
                     if (title != null && description != null) {
                         String titleText = title.getText().toString();
                         String descText = description.getText().toString();
-                        String pictureURIString = pictureUri.toString();
+                        Log.i("TITLE", titleText);
+                        Log.i("DESC", descText);
+
+                        if(pictureUri != null){
+                            String pictureURIString = pictureUri.toString();
+                            photoPaths.add(pictureURIString);
+                        }
+
 
                         titles.add(titleText);
                         descriptions.add(descText);
-                        photoPaths.add(pictureURIString);
+
                         longitudes.add("" + longitude);
                         latitudes.add("" + latitude);
 

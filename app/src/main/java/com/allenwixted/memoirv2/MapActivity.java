@@ -178,9 +178,8 @@ public class MapActivity extends AddMemoryActivity {
         super.onResume();
         for(int i = 0; i < titles.size();i++){
             markerDataCollection.add(
-                    new PictureMarkerDataModel(
-                            R.drawable.rubbish,
-                            titles.get(i),
+                    new PictureMarkerDataModel(R.drawable.rubbish,
+                           titles.get(i),
                             descriptions.get(i),
                             // Replace the randoms with "+1" after debugging is complete
                             new LatLng(Double.parseDouble(latitudes.get(i)) + rand.nextInt(5), Double.parseDouble(longitudes.get(i) +rand.nextInt(5)))
