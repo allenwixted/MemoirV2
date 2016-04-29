@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -112,6 +114,8 @@ public class AddMemoryActivity extends AppCompatActivity {
 
         Button saveButton = (Button) findViewById(R.id.saveButton);
         if (saveButton != null) {
+            saveButton.setBackgroundColor(Color.parseColor("#A8C7D9"));
+            saveButton.invalidate();
             saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -146,6 +150,8 @@ public class AddMemoryActivity extends AppCompatActivity {
 
         Button photoButtonCapture = (Button) findViewById(R.id.photoButton);
         if (photoButtonCapture != null) {
+            photoButtonCapture.setBackgroundColor(Color.parseColor("#A8C7D9"));
+            photoButtonCapture.invalidate();
             photoButtonCapture.setOnClickListener(new View.OnClickListener() {
 
                 @Override

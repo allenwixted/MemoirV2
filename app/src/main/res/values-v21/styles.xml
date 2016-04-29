@@ -2,8 +2,8 @@
 <resources>
 
     <style name="Memoir" parent="AppTheme">
-        <item name="colorPrimary">@android:color/holo_blue_bright</item>
-        <item name="colorPrimaryDark">@android:color/holo_blue_dark</item>
-        <item name="android:statusBarColor">@android:color/holo_blue_light</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@color/colorAccent</item>
     </style>
 </resources>

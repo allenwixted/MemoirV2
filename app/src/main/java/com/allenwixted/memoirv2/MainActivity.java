@@ -1,6 +1,7 @@
 package com.allenwixted.memoirv2;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         //Adds functionality for the view memory button
         Button logButton = (Button) findViewById(R.id.mainLogButton);
         if (logButton != null) {
+            logButton.setBackgroundColor(Color.parseColor("#A8C7D9"));
+            logButton.invalidate();
             logButton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
@@ -36,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         //Adds functionality for the map button
         Button viewButton = (Button) findViewById(R.id.mainViewButton);
         if (viewButton != null) {
+            viewButton.setBackgroundColor(Color.parseColor("#A8C7D9"));
+            viewButton.invalidate();
             viewButton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
