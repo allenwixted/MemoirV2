@@ -20,14 +20,17 @@
         android:layout_height="100dp"
         android:text="Log New Memory"
         android:id="@+id/mainLogButton"
+        android:textColor="@color/colorAccent"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:text="View Memories"
         android:id="@+id/mainViewButton"
+        android:textColor="@color/colorAccent"
         android:layout_below="@+id/mainLogButton"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
