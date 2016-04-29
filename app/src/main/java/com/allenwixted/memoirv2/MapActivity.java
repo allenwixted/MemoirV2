@@ -175,14 +175,6 @@ public class MapActivity extends AddMemoryActivity {
             mMapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
-                    for (PictureMarkerDataModel markerData : markerDataCollection) {
-                        googleMap.addMarker(new MarkerOptions()
-                                .position(markerData.getPosition())
-                                .title(markerData.getTitle())
-                                .snippet(markerData.getSnippet())
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                        );
-                    }
                     googleMap.moveCamera(CameraUpdateFactory
                             .newLatLngZoom(myCurrentLoc, 7));
         }
@@ -277,9 +269,10 @@ public class MapActivity extends AddMemoryActivity {
                                     if (markerData.getTitle().equals(marker.getTitle())) {
 
                                         for (int i = 0; i < titles.size(); i++) {
+                                            if(!imageNames.isEmpty()){
                                             if (imageNames.get(i) == marker.getTitle()) {
                                                 foundImage = i;
-                                            }
+                                            }}
                                         }
 
 

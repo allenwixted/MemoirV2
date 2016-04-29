@@ -161,8 +161,9 @@ public class AddMemoryActivity extends AppCompatActivity {
                         }
                         else {
                             //if no image has been chosen use a placeholder instead
-                            Bitmap placeholder = BitmapFactory.decodeResource(getResources(), R.drawable.noimage);
-                            imageArray.add(placeholder);
+                            //Bitmap placeholder = BitmapFactory.decodeResource(getResources(), R.drawable.noimage);
+
+                            imageArray.add(null);
                         }
 
                         image = null;
