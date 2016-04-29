@@ -9,5 +9,6 @@
 
     <string name="menu_help">Help</string>
     <string name="take_photo">Take Photo</string>
+    <string name="helpText">Create new memories by adding a title, a short description and photo. You can view your logged memories on the map. Please ensure that you have accepted all the prompts for camera, memory and map usage to allow the app to work to it’s best potential. Created by Allen Wixted, Conor Souness and Stuart Murphy.</string>
 
 </resources>
