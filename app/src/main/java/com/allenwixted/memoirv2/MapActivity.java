@@ -6,6 +6,7 @@ package com.allenwixted.memoirv2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -157,6 +158,8 @@ public class MapActivity extends AppCompatActivity {
 
         Button goButton = (Button) findViewById(R.id.go_button);
         if (goButton != null) {
+            goButton.setBackgroundColor(Color.parseColor("#A8C7D9"));
+            goButton.invalidate();
             goButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
