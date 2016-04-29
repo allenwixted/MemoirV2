@@ -171,11 +171,28 @@ public class MapActivity extends AddMemoryActivity {
 
 
     }
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        mMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                googleMap.clear();
+            }
+        });
+
+    }
 
     @Override
     protected void onResume() {
+        //GoogleMap googleMap = null;
+        //googleMap.clear();
+
+        markerDataCollection.clear();
         Random rand = new Random();
         super.onResume();
+
         for(int i = 0; i < titles.size();i++){
             markerDataCollection.add(
                     new PictureMarkerDataModel(R.drawable.rubbish,
@@ -186,6 +203,60 @@ public class MapActivity extends AddMemoryActivity {
 
                     )
             );
+
+            mMapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    for (PictureMarkerDataModel markerData : markerDataCollection) {
+                        googleMap.addMarker(new MarkerOptions()
+                                .position(markerData.getPosition())
+                                .title(markerData.getTitle())
+                                .snippet(markerData.getSnippet())
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                        );
+                    }
+                    googleMap.moveCamera(CameraUpdateFactory
+                            .newLatLngZoom(myCurrentLoc, 7));
+
+                    googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                        @Override
+                        public boolean onMarkerClick(Marker marker) {
+                            Toast.makeText(getApplicationContext(), "Marker clicked: " + marker.getTitle(), Toast.LENGTH_SHORT).show();
+                            return false;
+                        }
+                    });
+
+                    googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                        @Override
+                        public View getInfoWindow(Marker marker) {
+                            return null;
+                        }
+
+                        @Override
+                        public View getInfoContents(Marker marker) {
+                            for (PictureMarkerDataModel markerData : markerDataCollection) {
+                                if (markerData.getTitle().equals(marker.getTitle())) {
+                                    // create info contents as View
+                                    View contentView = getLayoutInflater().inflate(R.layout.activity_info_window_contents, null);
+                                    //View.inflate(getApplicationContext(), R.layout.info_window_contents, null);
+                                    // Set image
+                                    ImageView contentImageView = (ImageView) contentView.findViewById(R.id.info_window_image);
+                                    contentImageView.setImageResource(markerData.getImageResId());
+                                    // Set title
+                                    TextView contentTitleTextView = (TextView) contentView.findViewById(R.id.info_window_title);
+                                    contentTitleTextView.setText(markerData.getTitle());
+                                    // Set snippet
+                                    TextView contentSnippetTextView = (TextView) contentView.findViewById(R.id.info_window_snippet);
+                                    contentSnippetTextView.setText(markerData.getSnippet());
+                                    // return newly created View
+                                    return contentView;
+                                }
+                            }
+                            return null;
+                        }
+                    });
+                }
+            });
             // Debugging
             Log.i("map","TESTER "+ i);}
 
