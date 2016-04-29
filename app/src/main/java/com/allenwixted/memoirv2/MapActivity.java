@@ -64,10 +64,6 @@ public class MapActivity extends AddMemoryActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-//        readTitle();
-//        readDescription();
-//        readLatitude();
-//        readLongitude();
 
         mMapFragment = MapFragment.newInstance();
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
@@ -177,9 +173,9 @@ public class MapActivity extends AddMemoryActivity {
                 public void onMapReady(GoogleMap googleMap) {
                     googleMap.moveCamera(CameraUpdateFactory
                             .newLatLngZoom(myCurrentLoc, 7));
-        }
+                }
 
-    });
+            });
 
             Button goButton = (Button) findViewById(R.id.go_button);
             if (goButton != null) {
@@ -200,9 +196,9 @@ public class MapActivity extends AddMemoryActivity {
             }
         }
     }
+
     @Override
-    protected void onPause()
-    {
+    protected void onPause() {
         super.onPause();
         mMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -215,8 +211,6 @@ public class MapActivity extends AddMemoryActivity {
 
     @Override
     protected void onResume() {
-        //GoogleMap googleMap = null;
-        //googleMap.clear();
 
         markerDataCollection.clear();
         Random rand = new Random();
@@ -269,16 +263,16 @@ public class MapActivity extends AddMemoryActivity {
                                     if (markerData.getTitle().equals(marker.getTitle())) {
 
                                         for (int i = 0; i < titles.size(); i++) {
-                                            if(!imageNames.isEmpty()){
-                                            if (imageNames.get(i) == marker.getTitle()) {
-                                                foundImage = i;
-                                            }}
+                                            if (!imageNames.isEmpty()) {
+                                                if (imageNames.get(i) == marker.getTitle()) {
+                                                    foundImage = i;
+                                                }
+                                            }
                                         }
 
 
                                         // create info contents as View
                                         View contentView = getLayoutInflater().inflate(R.layout.activity_info_window_contents, null);
-                                        //View.inflate(getApplicationContext(), R.layout.info_window_contents, null);
                                         // Set image
                                         ImageView contentImageView = (ImageView) contentView.findViewById(R.id.info_window_image);
                                         contentImageView.setImageBitmap(imageArray.get(foundImage));
@@ -298,12 +292,9 @@ public class MapActivity extends AddMemoryActivity {
                         });
                     }
                 });
-                // Debugging
-                Log.i("map", "TESTER " + i);
             }
 
-        }
-        else {
+        } else {
             Context context = getApplicationContext();
 
             CharSequence text = "No Memories Logged!";
@@ -338,107 +329,4 @@ public class MapActivity extends AddMemoryActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
-//    public void readLatitude() {
-//
-//        final Context context = getApplicationContext();
-//
-//            FileInputStream fis = null;
-//            try {
-//
-//                fis = openFileInput(String.format("%s.txt",getString(R.string.lat)));
-//                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-//                while (fis.available() > 0) {
-//                    lats.add(reader.readLine());
-//                    Log.i("ReadLatitude", "LATITUDE");
-//                }
-//            } catch (Exception e) {
-//                Log.d("MemoryRead", e.toString());
-//            } finally {
-//                if (fis != null)
-//                    try {
-//                        fis.close();
-//                    } catch (IOException ignored) {
-//                    }
-//            }
-//        }
-//
-//
-//
-//    public void readLongitude() {
-//
-//        final Context context = getApplicationContext();
-//
-//            FileInputStream fis = null;
-//            try {
-//                fis = openFileInput(String.format("%s.txt",getString(R.string.lon)));
-//                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-//                while (fis.available() > 0) {
-//
-//                    longs.add(reader.readLine());
-//                    Log.i("ReadLongitude", "LONGITUDE");
-//                }
-//            } catch (Exception e) {
-//                Log.d("MemoryRead", e.toString());
-//            } finally {
-//                if (fis != null)
-//                    try {
-//                        fis.close();
-//                    } catch (IOException ignored) {
-//                    }
-//            }
-//
-//    }
-//
-//    public void readTitle() {
-//
-//        final Context context = getApplicationContext();
-//
-//            FileInputStream fis = null;
-//            try {
-//                fis = openFileInput(String.format("%s.txt",getString(R.string.title)));
-//                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-//                while (fis.available() > 0) {
-//
-//                    titles.add(reader.readLine());
-//                    Log.i("ReadTitles", "TITLES");
-//                }
-//            } catch (Exception e) {
-//                Log.d("MemoryRead", e.toString());
-//            } finally {
-//                if (fis != null)
-//                    try {
-//                        fis.close();
-//                    } catch (IOException ignored) {
-//                    }
-//            }
-//        }
-
-
-
-//    public void readDescription() {
-//
-//        final Context context = getApplicationContext();
-//
-//            FileInputStream fis = null;
-//            try {
-//                fis = openFileInput(String.format("%s.txt",getString(R.string.desc)));
-//                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-//                while (fis.available() > 0) {
-//
-//                    descr.add(reader.readLine());
-//                    Log.i("ReadDescription", "DESCRIPTION");
-//                }
-//            } catch (Exception e) {
-//                Log.d("MemoryRead", e.toString());
-//            } finally {
-//                if (fis != null)
-//                    try {
-//                        fis.close();
-//                    } catch (IOException ignored) {
-//                    }
-//            }
-//        }
-
-    }
+}

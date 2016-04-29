@@ -67,13 +67,6 @@ public class AddMemoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_memory);
         final Context context = getApplicationContext();
 
-        //Create a file for each type of info. Titles, Descriptions, longitude and latitude of Saved Memories)
-        //File titles = new File(context.getFilesDir(), getString(R.string.title));
-        //File desc = new File(context.getFilesDir(), getString(R.string.desc));
-        //File lon = new File(context.getFilesDir(), getString(R.string.lon));
-        //File lat = new File(context.getFilesDir(), getString(R.string.lat));
-        //final File imgLoc = new File(context.getFilesDir(), getString(R.string.imgLoc));
-
         //create GPS listener
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //Check permissions of GPS
@@ -140,8 +133,6 @@ public class AddMemoryActivity extends AppCompatActivity {
                     if (title != null && description != null) {
                         titleText = title.getText().toString();
                         String descText = description.getText().toString();
-                        Log.i("TITLE", titleText);
-                        Log.i("DESC", descText);
 
                         if(pictureUri != null){
                             String pictureURIString = pictureUri.toString();
@@ -161,18 +152,10 @@ public class AddMemoryActivity extends AppCompatActivity {
                         }
                         else {
                             //if no image has been chosen use a placeholder instead
-                            //Bitmap placeholder = BitmapFactory.decodeResource(getResources(), R.drawable.noimage);
-
                             imageArray.add(null);
                         }
 
                         image = null;
-
-                        //writeFile(getString(R.string.title), String.format("%s\n", titleText));
-                        //writeFile(getString(R.string.desc), String.format("%s\n", descText));
-                        //writeFile(getString(R.string.lat), String.format("%s\n", latitude));
-                        //writeFile(getString(R.string.lon), String.format("%s\n", longitude));
-                        //writeFile(getString(R.string.imgLoc), String.format("%\n", pictureURIString));
 
                         CharSequence text = "Memory Added";
                         Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
@@ -245,60 +228,6 @@ public class AddMemoryActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-//
-//    public String readFile(String fileName)
-//    {
-//        Context context = getApplicationContext();
-//        String result = "";
-//        Log.i("DIRECTORY R", context.getFilesDir().toString());
-//
-//            FileInputStream fis = null;
-//
-//            try
-//            {
-//                fis = openFileInput(String.format("%s.txt",fileName));
-//                BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-//
-//                    result = reader.readLine();
-//                    Log.i("Read", result);
-//
-//            } catch (Exception e)
-//            {
-//                Log.d("MemoryRead", e.toString());
-//            } finally {
-//                if (fis != null)
-//                    try
-//                    {
-//                        fis.close();
-//                    } catch (IOException ignored)
-//                    {
-//                    }
-//            }
-//        //}
-//        return result;
-//    }
-//
-//    public void writeFile(String fileName, String text)
-//    {
-//        Context context = getApplicationContext();
-//        Log.i("DIRECTORY W", context.getFilesDir().toString());
-//
-//        FileOutputStream fOut = null;
-//        try {
-//            fOut = openFileOutput(String.format("%s.txt", fileName), MODE_APPEND);
-//            OutputStreamWriter osw = new OutputStreamWriter(fOut);
-//            osw.write(text);
-//            Log.i("Write", text);
-//            osw.flush();
-//            osw.close();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
