@@ -76,124 +76,18 @@ public class MapActivity extends AddMemoryActivity {
 
         markerDataCollection = new ArrayList<>();
 
-        for(int i = 0; i < titles.size();i++){
-        markerDataCollection.add(
-                new PictureMarkerDataModel(
-                        R.id.map,
-                        titles.get(i),
-                        descriptions.get(i),
-                        new LatLng(Double.parseDouble(latitudes.get(i)) + rand.nextInt(5), Double.parseDouble(longitudes.get(i) +rand.nextInt(5)))
-                )
-        );}
+        if (!titles.isEmpty()) {
 
-        mMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                for (PictureMarkerDataModel markerData : markerDataCollection) {
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(markerData.getPosition())
-                            .title(markerData.getTitle())
-                            .snippet(markerData.getSnippet())
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                    );
-                }
-                googleMap.moveCamera(CameraUpdateFactory
-                        .newLatLngZoom(myCurrentLoc, 7));
-
-                googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                    @Override
-                    public boolean onMarkerClick(Marker marker) {
-                        Toast.makeText(getApplicationContext(), "Marker clicked: " + marker.getTitle(), Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                });
-
-                googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-                    @Override
-                    public View getInfoWindow(Marker marker) {
-                        return null;
-                    }
-
-                    @Override
-                    public View getInfoContents(Marker marker) {
-                        for (PictureMarkerDataModel markerData : markerDataCollection) {
-                            if (markerData.getTitle().equals(marker.getTitle())) {
-                                // create info contents as View
-                                View contentView = getLayoutInflater().inflate(R.layout.activity_info_window_contents, null);
-                                //View.inflate(getApplicationContext(), R.layout.info_window_contents, null);
-                                // Set image
-                                ImageView contentImageView = (ImageView) contentView.findViewById(R.id.info_window_image);
-                                contentImageView.setImageResource(markerData.getImageResId());
-                                // Set title
-                                TextView contentTitleTextView = (TextView) contentView.findViewById(R.id.info_window_title);
-                                contentTitleTextView.setText(markerData.getTitle());
-                                // Set snippet
-                                TextView contentSnippetTextView = (TextView) contentView.findViewById(R.id.info_window_snippet);
-                                contentSnippetTextView.setText(markerData.getSnippet());
-                                // return newly created View
-                                return contentView;
-                            }
-                        }
-                        return null;
-                    }
-                });
+            for (int i = 0; i < titles.size(); i++) {
+                markerDataCollection.add(
+                        new PictureMarkerDataModel(
+                                R.id.map,
+                                titles.get(i),
+                                descriptions.get(i),
+                                new LatLng(Double.parseDouble(latitudes.get(i)) + rand.nextInt(5), Double.parseDouble(longitudes.get(i) + rand.nextInt(5)))
+                        )
+                );
             }
-        });
-
-
-
-        Button goButton = (Button) findViewById(R.id.go_button);
-        if (goButton != null) {
-            goButton.setBackgroundColor(Color.parseColor("#A8C7D9"));
-            goButton.invalidate();
-            goButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mMapFragment.getMapAsync(new OnMapReadyCallback() {
-                        @Override
-                        public void onMapReady(GoogleMap googleMap) {
-                            googleMap.animateCamera(CameraUpdateFactory
-                                    .newLatLngZoom(limerickLocation, 14));
-                        }
-                    });
-                }
-            });
-        }
-
-
-    }
-    @Override
-    protected void onPause()
-    {
-        super.onPause();
-        mMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                googleMap.clear();
-            }
-        });
-
-    }
-
-    @Override
-    protected void onResume() {
-        //GoogleMap googleMap = null;
-        //googleMap.clear();
-
-        markerDataCollection.clear();
-        Random rand = new Random();
-        super.onResume();
-
-        for(int i = 0; i < titles.size();i++){
-            markerDataCollection.add(
-                    new PictureMarkerDataModel(R.drawable.rubbish,
-                           titles.get(i),
-                            descriptions.get(i),
-                            // Replace the randoms with "+1" after debugging is complete
-                            new LatLng(Double.parseDouble(latitudes.get(i)) + rand.nextInt(5), Double.parseDouble(longitudes.get(i) +rand.nextInt(5)))
-
-                    )
-            );
 
             mMapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
@@ -232,14 +126,13 @@ public class MapActivity extends AddMemoryActivity {
                                     //View.inflate(getApplicationContext(), R.layout.info_window_contents, null);
                                     // Set image
                                     ImageView contentImageView = (ImageView) contentView.findViewById(R.id.info_window_image);
-                                    contentImageView.setImageBitmap(image);
+                                    contentImageView.setImageResource(markerData.getImageResId());
                                     // Set title
                                     TextView contentTitleTextView = (TextView) contentView.findViewById(R.id.info_window_title);
                                     contentTitleTextView.setText(markerData.getTitle());
                                     // Set snippet
                                     TextView contentSnippetTextView = (TextView) contentView.findViewById(R.id.info_window_snippet);
                                     contentSnippetTextView.setText(markerData.getSnippet());
-
                                     // return newly created View
                                     return contentView;
                                 }
@@ -249,9 +142,183 @@ public class MapActivity extends AddMemoryActivity {
                     });
                 }
             });
-            // Debugging
-            Log.i("map","TESTER "+ i);}
 
+
+            Button goButton = (Button) findViewById(R.id.go_button);
+            if (goButton != null) {
+                goButton.setBackgroundColor(Color.parseColor("#A8C7D9"));
+                goButton.invalidate();
+                goButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mMapFragment.getMapAsync(new OnMapReadyCallback() {
+                            @Override
+                            public void onMapReady(GoogleMap googleMap) {
+                                googleMap.animateCamera(CameraUpdateFactory
+                                        .newLatLngZoom(limerickLocation, 14));
+                            }
+                        });
+                    }
+                });
+            }
+
+
+        } else {
+            Context context = getApplicationContext();
+
+            CharSequence text = "No Memories Logged!";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
+            mMapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    for (PictureMarkerDataModel markerData : markerDataCollection) {
+                        googleMap.addMarker(new MarkerOptions()
+                                .position(markerData.getPosition())
+                                .title(markerData.getTitle())
+                                .snippet(markerData.getSnippet())
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                        );
+                    }
+                    googleMap.moveCamera(CameraUpdateFactory
+                            .newLatLngZoom(myCurrentLoc, 7));
+        }
+
+    });
+
+            Button goButton = (Button) findViewById(R.id.go_button);
+            if (goButton != null) {
+                goButton.setBackgroundColor(Color.parseColor("#A8C7D9"));
+                goButton.invalidate();
+                goButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mMapFragment.getMapAsync(new OnMapReadyCallback() {
+                            @Override
+                            public void onMapReady(GoogleMap googleMap) {
+                                googleMap.animateCamera(CameraUpdateFactory
+                                        .newLatLngZoom(myCurrentLoc, 14));
+                            }
+                        });
+                    }
+                });
+            }
+        }
+    }
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        mMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                googleMap.clear();
+            }
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        //GoogleMap googleMap = null;
+        //googleMap.clear();
+
+        markerDataCollection.clear();
+        Random rand = new Random();
+        super.onResume();
+
+        if (!titles.isEmpty()) {
+            for (int i = 0; i < titles.size(); i++) {
+                markerDataCollection.add(
+                        new PictureMarkerDataModel(R.drawable.rubbish,
+                                titles.get(i),
+                                descriptions.get(i),
+                                // Replace the randoms with "+1" after debugging is complete
+                                new LatLng(Double.parseDouble(latitudes.get(i)) + rand.nextInt(5), Double.parseDouble(longitudes.get(i) + rand.nextInt(5)))
+
+                        )
+                );
+
+                mMapFragment.getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(GoogleMap googleMap) {
+                        for (PictureMarkerDataModel markerData : markerDataCollection) {
+                            googleMap.addMarker(new MarkerOptions()
+                                    .position(markerData.getPosition())
+                                    .title(markerData.getTitle())
+                                    .snippet(markerData.getSnippet())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                            );
+                        }
+                        googleMap.moveCamera(CameraUpdateFactory
+                                .newLatLngZoom(myCurrentLoc, 7));
+
+                        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(Marker marker) {
+                                Toast.makeText(getApplicationContext(), "Marker clicked: " + marker.getTitle(), Toast.LENGTH_SHORT).show();
+                                return false;
+                            }
+                        });
+
+                        googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                            @Override
+                            public View getInfoWindow(Marker marker) {
+                                return null;
+                            }
+
+                            @Override
+                            public View getInfoContents(Marker marker) {
+                                int foundImage = 0;
+                                for (PictureMarkerDataModel markerData : markerDataCollection) {
+                                    if (markerData.getTitle().equals(marker.getTitle())) {
+
+                                        for (int i = 0; i < titles.size(); i++) {
+                                            if (imageNames.get(i) == marker.getTitle()) {
+                                                foundImage = i;
+                                            }
+                                        }
+
+
+                                        // create info contents as View
+                                        View contentView = getLayoutInflater().inflate(R.layout.activity_info_window_contents, null);
+                                        //View.inflate(getApplicationContext(), R.layout.info_window_contents, null);
+                                        // Set image
+                                        ImageView contentImageView = (ImageView) contentView.findViewById(R.id.info_window_image);
+                                        contentImageView.setImageBitmap(imageArray.get(foundImage));
+                                        // Set title
+                                        TextView contentTitleTextView = (TextView) contentView.findViewById(R.id.info_window_title);
+                                        contentTitleTextView.setText(markerData.getTitle());
+                                        // Set snippet
+                                        TextView contentSnippetTextView = (TextView) contentView.findViewById(R.id.info_window_snippet);
+                                        contentSnippetTextView.setText(markerData.getSnippet());
+
+                                        // return newly created View
+                                        return contentView;
+                                    }
+                                }
+                                return null;
+                            }
+                        });
+                    }
+                });
+                // Debugging
+                Log.i("map", "TESTER " + i);
+            }
+
+        }
+        else {
+            Context context = getApplicationContext();
+
+            CharSequence text = "No Memories Logged!";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
     }
 
     //Adds a custom menu to the activity

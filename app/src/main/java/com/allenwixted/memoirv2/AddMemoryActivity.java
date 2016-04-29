@@ -50,12 +50,15 @@ public class AddMemoryActivity extends AppCompatActivity {
     public static double longitude;
     public static ImageView imgChosenPhoto; //This is the photo chosen by the user
     public static Bitmap image;
+    private String titleText;
     private Uri pictureUri; //Uri path for images, yo!
     public static ArrayList<String> latitudes = new ArrayList<>();
     public static ArrayList<String> longitudes = new ArrayList<>();
     public static ArrayList<String> titles = new ArrayList<>();
     public static ArrayList<String> descriptions = new ArrayList<>();
     public static ArrayList<String> photoPaths = new ArrayList<>();
+    public static ArrayList<Bitmap> imageArray = new ArrayList<>();
+    public static ArrayList<String> imageNames = new ArrayList<>();
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -135,7 +138,7 @@ public class AddMemoryActivity extends AppCompatActivity {
                     EditText description = (EditText) findViewById(R.id.editText2);
 
                     if (title != null && description != null) {
-                        String titleText = title.getText().toString();
+                        titleText = title.getText().toString();
                         String descText = description.getText().toString();
                         Log.i("TITLE", titleText);
                         Log.i("DESC", descText);
@@ -151,6 +154,18 @@ public class AddMemoryActivity extends AppCompatActivity {
 
                         longitudes.add("" + longitude);
                         latitudes.add("" + latitude);
+
+                        if(image != null){
+                            //add image to the array list
+                            imageArray.add(image);
+                        }
+                        else {
+                            //if no image has been chosen use a placeholder instead
+                            Bitmap placeholder = BitmapFactory.decodeResource(getResources(), R.drawable.noimage);
+                            imageArray.add(placeholder);
+                        }
+
+                        image = null;
 
                         //writeFile(getString(R.string.title), String.format("%s\n", titleText));
                         //writeFile(getString(R.string.desc), String.format("%s\n", descText));
@@ -191,9 +206,8 @@ public class AddMemoryActivity extends AppCompatActivity {
                 }
 
                 private String getPictureName() {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-                    String timestamp = sdf.format(new Date());
-                    return "capturedImage" + timestamp + ".jpg";
+                    imageNames.add(titleText);
+                    return titleText + ".jpg";
                 }
             });
         }
@@ -288,13 +302,14 @@ public class AddMemoryActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        //reset the image view before trying to take a new photo
+        imgChosenPhoto.invalidate();
         //did the user press OK?
         if(resultCode == RESULT_OK){
             if(requestCode == CAMERA_REQUEST){
                 //get input stream based on image's URI
                 InputStream inputStream;
-                try { //tries to get a bitmap image from the steam
+                try { //tries to get a bitmap image from the stream
                     inputStream = getContentResolver().openInputStream(pictureUri);
                     image = BitmapFactory.decodeStream(inputStream);
                     imgChosenPhoto.setImageBitmap(image);
