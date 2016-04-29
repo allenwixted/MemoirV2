@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Go to Limerick"
         android:width="150dp"
+        android:textColor="#FFFFFF"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"/>
-
 </RelativeLayout>
